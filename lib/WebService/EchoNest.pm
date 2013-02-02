@@ -73,11 +73,11 @@ __END__
 
 =head1 NAME
 
-Net::EchoNest - A simple interface to the EchoNest API
+WebService::EchoNest - A simple interface to the EchoNest API
 
 =head1 SYNOPSIS
 
-  my $echonest = Net::EchoNest->new(
+  my $echonest = WebService::EchoNest->new(
       api_key    => 'XXX',
   );
   
@@ -104,14 +104,14 @@ This module confesses if there is an error.
 
 This makes a request:
 
-  my $data = $lastfm->request( method => 'auth.gettoken' );
+  my $data = $echonest->request( method => 'auth.gettoken' );
 
 =head2 create_http_request
 
 If you want to integrate this module into another HTTP framework, this 
 method will simple create an unsigned L<HTTP::Request> object:
 
-  my $http_request = $lastfm->create_http_request(
+  my $http_request = $echonest->create_http_request(
       method => 'auth.gettoken'
   );
 
