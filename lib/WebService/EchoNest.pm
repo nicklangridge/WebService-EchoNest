@@ -5,7 +5,7 @@ use JSON::XS::VersionOneAndTwo;
 use LWP::UserAgent;
 use URI::QueryParam;
 
-our $VERSION = '0.001';
+our $VERSION = '0.003';
 
 has 'api_key' => (
   is       => 'rw',
@@ -104,15 +104,21 @@ This module confesses if there is an error.
 
 This makes a request:
 
-  my $data = $echonest->request( method => 'auth.gettoken' );
+  my $data = $echonest->request('artist/search',
+    name   => 'Black Moth Super Rainbow',
+    bucket => ['images'],
+    limit  => 'true'
+  );
 
 =head2 create_http_request
 
 If you want to integrate this module into another HTTP framework, this 
-method will simple create an unsigned L<HTTP::Request> object:
+method will create an L<HTTP::Request> object:
 
-  my $http_request = $echonest->create_http_request(
-      method => 'auth.gettoken'
+  my $http_request = $echonest->create_http_request('artist/search',
+    name   => 'Black Moth Super Rainbow',
+    bucket => ['images'],
+    limit  => 'true'
   );
 
 =head1 AUTHOR
