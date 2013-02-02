@@ -5,7 +5,7 @@ use JSON::XS::VersionOneAndTwo;
 use LWP::UserAgent;
 use URI::QueryParam;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 has 'api_key' => (
   is       => 'rw',
@@ -19,7 +19,7 @@ has 'ua' => (
   required => 0,
   default  => sub {
     my $ua = LWP::UserAgent->new;
-    $ua->agent( 'Net::Echonest/' . $VERSION );
+    $ua->agent( 'WebService::Echonest/' . $VERSION );
     $ua->env_proxy;
     return $ua;
   }
