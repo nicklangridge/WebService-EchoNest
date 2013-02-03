@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 13;
 use Test::LWP::UserAgent;
 
 BEGIN {
@@ -12,7 +12,11 @@ my ($METHOD, $ARTIST, $ARTIST_ID, $KEY) =
 
 my $ua = Test::LWP::UserAgent->new;
 
-$ua->map_response(qr{$WebService::EchoNest::ROOT}, 
+my $echonest = new_ok('WebService::EchoNest', [ua => $ua, api_key => $KEY]);
+
+my $root = $echonest->api_root;
+
+$echonest->ua->map_response(qr{$root}, 
   HTTP::Response->new(
     200, 'OK', ['Content-Type' => 'application/json'], qq(
 {
@@ -33,13 +37,12 @@ $ua->map_response(qr{$WebService::EchoNest::ROOT},
   )
 );
 
-my $echonest = new_ok('WebService::EchoNest', [ua => $ua, api_key => $KEY]);
-
 my $req = $echonest->create_http_request($METHOD, name => $ARTIST, results => 1);
 isa_ok($req, 'HTTP::Request', 'Request');
-like($req->uri, qr{^$WebService::EchoNest::ROOT$METHOD}, 'Request URI base is correct');
+like($req->uri, qr{^$root}, 'Request URI root is correct');
 like($req->uri, qr{name=$ARTIST}, 'Request URI contains artist param');
 like($req->uri, qr{api_key=$KEY}, 'Request URI contains api_key param');
+like($req->uri, qr{results=1}, 'Request URI contains results param');
 
 my $data = $echonest->request($METHOD, name => $ARTIST, results => 1);
 isa_ok($data => 'HASH', 'Response data');

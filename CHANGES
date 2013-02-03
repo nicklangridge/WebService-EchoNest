@@ -9,3 +9,5 @@ Revision history for Perl module WebService::EchoNest
 0.005 Added some meta data
 
 0.006 Added more tests
+
+0.007 Added api_root attribute

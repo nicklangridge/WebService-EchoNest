@@ -5,8 +5,13 @@ use JSON::XS::VersionOneAndTwo;
 use LWP::UserAgent;
 use URI::QueryParam;
 
-our $VERSION = '0.005';
-our $ROOT    = 'http://developer.echonest.com/api/v4/';
+our $VERSION = '0.007';
+
+has 'api_root' => (
+  is      => 'rw',
+  isa     => 'Str',
+  default => 'http://developer.echonest.com/api/v4/'
+);
 
 has 'api_key' => (
   is       => 'rw',
@@ -36,7 +41,7 @@ sub create_http_request {
   my ( $self, $method, %conf ) = @_;
 
   $conf{api_key} = $self->api_key;
-  my $uri = URI->new($ROOT . $method);
+  my $uri = URI->new($self->api_root . $method);
 
   foreach my $key ( keys %conf ) {
     my $value = $conf{$key};
