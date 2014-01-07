@@ -3,7 +3,7 @@ WebService-EchoNest
 
 ## NAME
 
-WebService::EchoNest - A simple interface to the EchoNest API
+WebService::EchoNest - A simple Perl interface to the EchoNest API
 
 ## SYNOPSIS
 
